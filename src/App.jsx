@@ -1,3 +1,5 @@
+import { useState, useCallback } from 'react'
+import IntroAnimation from './components/IntroAnimation'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import TrustBar from './components/TrustBar'
@@ -9,19 +11,28 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 
 export default function App() {
+  const [introComplete, setIntroComplete] = useState(false)
+  const handleIntroComplete = useCallback(() => setIntroComplete(true), [])
+
   return (
-    <div className="min-h-screen bg-cream-100 font-sans text-plum-900">
-      <Header />
-      <main>
-        <Hero />
-        <TrustBar />
-        <About />
-        <Services />
-        <Fees />
-        <Location />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <>
+      {!introComplete && (
+        <IntroAnimation onComplete={handleIntroComplete} />
+      )}
+
+      <div className="min-h-screen bg-cream-100 font-sans text-plum-900">
+        <Header />
+        <main>
+          <Hero />
+          <TrustBar />
+          <About />
+          <Services />
+          <Fees />
+          <Location />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </>
   )
 }

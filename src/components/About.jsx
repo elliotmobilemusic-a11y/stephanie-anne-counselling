@@ -1,7 +1,17 @@
+import { useState } from 'react'
 import { CheckCircle } from 'lucide-react'
 import { aboutContent } from '../data/siteContent'
 
+const portraitModules = import.meta.glob(
+  '../assets/stephanie-portrait.{jpg,jpeg,png,webp}',
+  { eager: true }
+)
+const portraitSrc = Object.values(portraitModules)[0]?.default ?? null
+
 export default function About() {
+  const [imgError, setImgError] = useState(false)
+  const showPhoto = portraitSrc && !imgError
+
   return (
     <section id="about" className="py-20 sm:py-28 bg-cream-100">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
@@ -20,26 +30,26 @@ export default function About() {
             />
 
             {/* Image frame */}
-            <div className="relative rounded-3xl overflow-hidden aspect-[3/4] bg-gradient-to-br from-cream-200 to-lavender-100 flex items-center justify-center border border-cream-200 z-10">
-              {/*
-                TODO: Replace this placeholder with Stephanie's photo.
-                Example:
-                  <img
-                    src="/images/stephanie-about.jpg"
-                    alt="Stephanie in her therapy room in Brighouse"
-                    className="w-full h-full object-cover"
-                  />
-              */}
-              <div className="text-center px-8 py-12 select-none">
-                <div className="w-24 h-24 rounded-full bg-white/60 mx-auto mb-4 flex items-center justify-center shadow-sm">
-                  <span className="font-serif text-4xl text-plum-500" aria-hidden="true">S</span>
+            <div className="relative rounded-3xl overflow-hidden aspect-[3/4] bg-gradient-to-br from-cream-200 to-lavender-100 flex items-center justify-center border border-cream-200 z-10 shadow-lg">
+              {showPhoto ? (
+                <img
+                  src={portraitSrc}
+                  alt="Stephanie in her therapy room in Brighouse"
+                  className="w-full h-full object-cover object-top"
+                  onError={() => setImgError(true)}
+                />
+              ) : (
+                <div className="text-center px-8 py-12 select-none">
+                  <div className="w-24 h-24 rounded-full bg-white/60 mx-auto mb-4 flex items-center justify-center shadow-sm">
+                    <span className="font-serif text-4xl text-plum-500" aria-hidden="true">S</span>
+                  </div>
+                  <p className="font-sans text-sm text-plum-400 leading-relaxed">
+                    Place photo at
+                    <br />
+                    <span className="text-xs text-plum-300 font-mono">src/assets/stephanie-portrait.jpg</span>
+                  </p>
                 </div>
-                <p className="font-sans text-sm text-plum-400 leading-relaxed">
-                  Photo of Stephanie
-                  <br />
-                  <span className="text-xs text-plum-300">(Add portrait photo here)</span>
-                </p>
-              </div>
+              )}
             </div>
 
             {/* Floating BACP badge */}

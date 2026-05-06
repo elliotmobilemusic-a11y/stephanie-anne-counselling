@@ -1,7 +1,19 @@
+import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { heroContent, siteInfo } from '../data/siteContent'
 
+// Place your portrait photo at: src/assets/stephanie-portrait.jpg
+// Supported formats: .jpg .jpeg .png .webp
+const portraitModules = import.meta.glob(
+  '../assets/stephanie-portrait.{jpg,jpeg,png,webp}',
+  { eager: true }
+)
+const portraitSrc = Object.values(portraitModules)[0]?.default ?? null
+
 export default function Hero() {
+  const [imgError, setImgError] = useState(false)
+  const showPhoto = portraitSrc && !imgError
+
   return (
     <section
       id="home"
@@ -83,28 +95,25 @@ export default function Hero() {
             />
             {/* Portrait container */}
             <div className="relative rounded-3xl overflow-hidden aspect-[4/5] border border-lavender-200/60 bg-gradient-to-br from-lavender-100 to-blush-100 flex items-center justify-center">
-              {/*
-                TODO: Replace this placeholder with Stephanie's portrait photo.
-                Example:
-                  <img
-                    src="/images/stephanie-portrait.jpg"
-                    alt="Stephanie, Person-Centred Counsellor in Brighouse"
-                    className="w-full h-full object-cover"
-                  />
-                Place the image in the /public/images/ folder.
-              */}
-              <div className="text-center px-8 py-12 select-none">
-                <div className="w-24 h-24 rounded-full bg-white/60 mx-auto mb-4 flex items-center justify-center shadow-sm">
-                  <span className="font-serif text-4xl text-plum-500" aria-hidden="true">S</span>
+              {showPhoto ? (
+                <img
+                  src={portraitSrc}
+                  alt="Stephanie, Person-Centred Counsellor in Brighouse"
+                  className="w-full h-full object-cover object-top"
+                  onError={() => setImgError(true)}
+                />
+              ) : (
+                <div className="text-center px-8 py-12 select-none">
+                  <div className="w-24 h-24 rounded-full bg-white/60 mx-auto mb-4 flex items-center justify-center shadow-sm">
+                    <span className="font-serif text-4xl text-plum-500" aria-hidden="true">S</span>
+                  </div>
+                  <p className="font-sans text-sm text-plum-400 leading-relaxed">
+                    Place photo at
+                    <br />
+                    <span className="text-xs text-plum-300 font-mono">src/assets/stephanie-portrait.jpg</span>
+                  </p>
                 </div>
-                <p className="font-sans text-sm text-plum-400 leading-relaxed">
-                  Portrait photo of Stephanie
-                  <br />
-                  <span className="text-xs text-plum-300">
-                    See /src/assets/README.md for instructions
-                  </span>
-                </p>
-              </div>
+              )}
             </div>
           </div>
         </div>
