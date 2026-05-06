@@ -3,12 +3,19 @@ import { services, siteInfo } from '../data/siteContent'
 
 const iconMap = { Heart, Leaf, Monitor, MapPin }
 
+const cardAccents = [
+  { bg: 'bg-lavender-100', icon: 'text-plum-500',  border: 'hover:border-lavender-200' },
+  { bg: 'bg-blush-100',   icon: 'text-blush-500',  border: 'hover:border-blush-200'   },
+  { bg: 'bg-lavender-100', icon: 'text-plum-500',  border: 'hover:border-lavender-200' },
+  { bg: 'bg-blush-100',   icon: 'text-blush-500',  border: 'hover:border-blush-200'   },
+]
+
 export default function Services() {
   return (
     <section id="services" className="py-20 sm:py-28 bg-white">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
 
-        {/* Header */}
+        {/* Section header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <p className="section-label mb-3">What I Offer</p>
           <h2 className="section-heading mb-4">Counselling Services</h2>
@@ -19,25 +26,23 @@ export default function Services() {
         </div>
 
         {/* Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {services.map((service, i) => {
             const Icon = iconMap[service.icon] || Heart
-            // Alternating subtle accent for icon badge
-            const accentBg = i % 2 === 0 ? 'bg-lavender-100' : 'bg-blush-100'
-            const accentIcon = i % 2 === 0 ? 'text-plum-500' : 'text-blush-500'
+            const accent = cardAccents[i % cardAccents.length]
 
             return (
               <div
                 key={service.id}
-                className="rounded-2xl border border-cream-200 bg-white p-7 flex flex-col gap-5 shadow-sm hover:shadow-md transition-shadow duration-200 group"
+                className={`rounded-2xl border border-cream-200 bg-white p-7 flex flex-col gap-5 shadow-sm transition-all duration-200 hover:shadow-lg ${accent.border} group`}
               >
                 <div
-                  className={`w-12 h-12 rounded-xl ${accentBg} flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110`}
+                  className={`w-11 h-11 rounded-xl ${accent.bg} flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105`}
                 >
-                  <Icon size={22} className={accentIcon} aria-hidden="true" />
+                  <Icon size={20} className={accent.icon} aria-hidden="true" />
                 </div>
                 <div>
-                  <h3 className="font-serif text-lg font-semibold text-plum-800 mb-2 leading-snug">
+                  <h3 className="font-serif text-lg font-semibold text-plum-800 mb-2.5 leading-snug">
                     {service.title}
                   </h3>
                   <p className="font-sans text-sm text-plum-400 leading-relaxed">

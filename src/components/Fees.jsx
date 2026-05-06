@@ -6,7 +6,7 @@ export default function Fees() {
     <section id="fees" className="py-20 sm:py-28 bg-cream-100">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
 
-        {/* Header */}
+        {/* Section header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
           <p className="section-label mb-3">Transparent Pricing</p>
           <h2 className="section-heading mb-4">Session Fees</h2>
@@ -17,19 +17,22 @@ export default function Fees() {
         </div>
 
         {/* Pricing grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {fees.map((fee, i) => (
             <div
               key={i}
-              className={`relative rounded-2xl p-7 border transition-all duration-200 hover:shadow-md ${
+              className={`relative rounded-2xl p-7 border transition-all duration-200 ${
                 fee.highlight
-                  ? 'bg-plum-700 border-plum-600 shadow-xl'
-                  : 'bg-white border-cream-200'
+                  ? 'text-white border-transparent shadow-2xl'
+                  : 'bg-white border-cream-200 hover:shadow-md hover:border-lavender-200'
               }`}
+              style={fee.highlight ? {
+                background: 'linear-gradient(145deg, #5C3A7E 0%, #4A2555 100%)',
+              } : {}}
             >
               {fee.highlight && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="bg-blush-400 text-white text-xs font-semibold font-sans px-4 py-1.5 rounded-full shadow">
+                  <span className="bg-blush-400 text-white text-xs font-semibold font-sans px-4 py-1.5 rounded-full shadow-md">
                     Start Here
                   </span>
                 </div>
@@ -53,7 +56,7 @@ export default function Fees() {
 
               <p
                 className={`font-sans text-sm leading-relaxed ${
-                  fee.highlight ? 'text-white/70' : 'text-plum-400'
+                  fee.highlight ? 'text-white/65' : 'text-plum-400'
                 }`}
               >
                 {fee.description}
@@ -68,7 +71,7 @@ export default function Fees() {
             Sessions are 50 minutes. Please get in touch if you have any questions about fees or
             would like to discuss payment options.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3.5 justify-center">
             <a
               href={siteInfo.bookingLink}
               target="_blank"

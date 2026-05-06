@@ -1,16 +1,11 @@
 import { useState } from 'react'
 import { CheckCircle } from 'lucide-react'
 import { aboutContent } from '../data/siteContent'
-
-const portraitModules = import.meta.glob(
-  '../assets/stephanie-portrait.{jpg,jpeg,png,webp}',
-  { eager: true }
-)
-const portraitSrc = Object.values(portraitModules)[0]?.default ?? null
+import stephaniePortrait from '../assets/stephanie-portrait.jpg'
 
 export default function About() {
   const [imgError, setImgError] = useState(false)
-  const showPhoto = portraitSrc && !imgError
+  const showPhoto = !imgError
 
   return (
     <section id="about" className="py-20 sm:py-28 bg-cream-100">
@@ -19,41 +14,54 @@ export default function About() {
 
           {/* ── Portrait ── */}
           <div className="relative order-2 lg:order-1">
-            {/* Decorative circles behind the image */}
+            {/* Decorative soft circles */}
             <div
               aria-hidden="true"
-              className="absolute -bottom-8 -right-8 w-56 h-56 rounded-full bg-blush-100 pointer-events-none"
+              className="absolute -bottom-10 -right-10 w-64 h-64 rounded-full bg-blush-100/80 pointer-events-none"
             />
             <div
               aria-hidden="true"
-              className="absolute -top-6 -left-6 w-40 h-40 rounded-full bg-lavender-100/70 pointer-events-none"
+              className="absolute -top-8 -left-8 w-48 h-48 rounded-full bg-lavender-100/60 pointer-events-none"
             />
 
             {/* Image frame */}
-            <div className="relative rounded-3xl overflow-hidden aspect-[3/4] bg-gradient-to-br from-cream-200 to-lavender-100 flex items-center justify-center border border-cream-200 z-10 shadow-lg">
+            <div
+              className="relative rounded-3xl overflow-hidden aspect-[3/4] z-10"
+              style={{
+                boxShadow: '0 20px 60px -10px rgba(74, 37, 85, 0.18), 0 4px 16px -4px rgba(74, 37, 85, 0.08)',
+              }}
+            >
               {showPhoto ? (
                 <img
-                  src={portraitSrc}
+                  src={stephaniePortrait}
                   alt="Stephanie in her therapy room in Brighouse"
                   className="w-full h-full object-cover object-top"
                   onError={() => setImgError(true)}
                 />
               ) : (
-                <div className="text-center px-8 py-12 select-none">
-                  <div className="w-24 h-24 rounded-full bg-white/60 mx-auto mb-4 flex items-center justify-center shadow-sm">
-                    <span className="font-serif text-4xl text-plum-500" aria-hidden="true">S</span>
+                <div className="w-full h-full bg-gradient-to-br from-cream-200 to-lavender-100 flex items-center justify-center border border-cream-200">
+                  <div className="text-center px-8 py-12 select-none">
+                    <div className="w-24 h-24 rounded-full bg-white/60 mx-auto mb-4 flex items-center justify-center shadow-sm">
+                      <span className="font-serif text-4xl text-plum-400" aria-hidden="true">S</span>
+                    </div>
+                    <p className="font-sans text-sm text-plum-400 leading-relaxed">
+                      Add photo at<br />
+                      <span className="text-xs text-plum-300 font-mono">src/assets/stephanie-portrait.jpg</span>
+                    </p>
                   </div>
-                  <p className="font-sans text-sm text-plum-400 leading-relaxed">
-                    Place photo at
-                    <br />
-                    <span className="text-xs text-plum-300 font-mono">src/assets/stephanie-portrait.jpg</span>
-                  </p>
                 </div>
               )}
+
+              {/* Bottom warmth gradient */}
+              <div
+                className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
+                style={{ background: 'linear-gradient(to top, rgba(250,247,242,0.15), transparent)' }}
+                aria-hidden="true"
+              />
             </div>
 
-            {/* Floating BACP badge */}
-            <div className="absolute -bottom-5 right-5 sm:right-8 z-20 bg-white rounded-2xl shadow-lg px-5 py-4 border border-cream-200">
+            {/* BACP floating badge */}
+            <div className="absolute -bottom-5 right-4 sm:right-6 z-20 bg-white rounded-2xl shadow-xl px-5 py-4 border border-cream-200">
               <p className="font-sans text-[10px] font-semibold text-plum-300 uppercase tracking-widest mb-0.5">
                 Registered with
               </p>
@@ -97,6 +105,7 @@ export default function About() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
