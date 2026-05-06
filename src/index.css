@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream-100 text-plum-900 font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full
+           bg-plum-700 text-white font-sans font-medium text-sm
+           transition-all duration-200
+           hover:bg-plum-800 hover:shadow-lg
+           focus:outline-none focus:ring-2 focus:ring-plum-500 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full
+           border-2 border-plum-700 text-plum-700 font-sans font-medium text-sm
+           transition-all duration-200
+           hover:bg-plum-700 hover:text-white
+           focus:outline-none focus:ring-2 focus:ring-plum-500 focus:ring-offset-2;
+  }
+
+  .section-label {
+    @apply font-sans text-sm font-medium text-blush-500 uppercase tracking-widest;
+  }
+
+  .section-heading {
+    @apply font-serif text-3xl sm:text-4xl font-semibold text-plum-800 leading-tight;
+  }
+
+  .section-subheading {
+    @apply font-sans text-lg text-plum-400 leading-relaxed;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl border border-cream-200 shadow-sm p-6
+           transition-shadow duration-200 hover:shadow-md;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-cream-200 bg-cream-50
+           font-sans text-sm text-plum-800 placeholder:text-plum-300
+           transition duration-200
+           focus:outline-none focus:ring-2 focus:ring-plum-300 focus:border-plum-300;
+  }
+
+  .input-label {
+    @apply block font-sans text-sm font-medium text-plum-700 mb-1.5;
+  }
+}
