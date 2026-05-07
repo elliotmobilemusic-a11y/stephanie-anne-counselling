@@ -1,7 +1,7 @@
 // ─── Site-wide information ────────────────────────────────────────────────────
 export const siteInfo = {
   businessName: 'Stephanie Anne Counselling',
-  tagline: 'A safe, confidential space to talk',
+  tagline: 'Person-centred counselling',
   email: 'Stephanieanne@client-led.uk',
   phone: '07736 973185',
   location: 'Brighouse, West Yorkshire',
@@ -15,11 +15,11 @@ export const siteInfo = {
 
 // ─── Hero section ─────────────────────────────────────────────────────────────
 export const heroContent = {
-  headline: 'You deserve to feel heard',
+  headline: "A calm, compassionate space for grief, loss and life’s difficult moments.",
   subheadline:
-    "Person-centred counselling in Brighouse and online. A warm, confidential space to explore what's on your mind — at your own pace, in your own way.",
-  ctaPrimary: 'Book Your Free Consultation',
-  ctaSecondary: 'Find Out More',
+    "Professional counselling in Brighouse, West Yorkshire and online — offering warm, confidential support at your pace.",
+  ctaPrimary: 'Book a first conversation',
+  ctaSecondary: 'Learn how I can help',
 }
 
 // ─── Trust bar ────────────────────────────────────────────────────────────────
@@ -54,28 +54,28 @@ export const aboutContent = {
 export const services = [
   {
     id: 'person-centred',
-    title: 'Person-Centred Counselling',
+    title: 'Person-centred counselling',
     description:
       "At the heart of my practice is person-centred therapy — a humanistic approach that trusts in your innate capacity to grow and heal. I walk alongside you, listening deeply and without judgment, as you explore what's troubling you.",
     icon: 'Heart',
   },
   {
     id: 'grief',
-    title: 'Grief & Bereavement Counselling',
+    title: 'Grief & bereavement support',
     description:
       'Losing someone — or something — can leave you feeling lost, stuck, or overwhelmed. I offer a dedicated, compassionate space to process grief in all its forms, at whatever pace feels right for you.',
     icon: 'Leaf',
   },
   {
     id: 'online',
-    title: 'Online Counselling',
+    title: 'Online counselling',
     description:
       'Quality therapy from the comfort of your own home. Online sessions offer the same warmth and care as in-person sessions, via a secure video call platform that works for you.',
     icon: 'Monitor',
   },
   {
     id: 'in-person',
-    title: 'In-Person Counselling',
+    title: 'In-person counselling in Brighouse',
     description:
       'Face-to-face sessions in Brighouse, West Yorkshire. A calm, private, welcoming therapy room where you can feel comfortable and safe to open up.',
     icon: 'MapPin',
@@ -130,7 +130,7 @@ export const locationContent = {
 
 // ─── Contact section ──────────────────────────────────────────────────────────
 export const contactContent = {
-  heading: 'Get in Touch',
+  heading: 'Get in touch',
   intro:
     "Taking the first step can feel daunting — but I'm here to make it as easy as possible. You can book a free telephone consultation, send me an email, or simply give me a call.",
 }
