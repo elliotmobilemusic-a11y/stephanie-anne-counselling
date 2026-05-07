@@ -1,22 +1,25 @@
 import { useState } from 'react'
-import { Phone, Mail, ExternalLink, Calendar, CheckCircle } from 'lucide-react'
-import { siteInfo, contactContent } from '../data/siteContent'
+import { Calendar, CheckCircle, ExternalLink, Mail, MapPin, Phone } from 'lucide-react'
+import { contactContent, siteInfo } from '../data/siteContent'
+
+const encode = data =>
+  Object.keys(data)
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join('&')
 
 function FormSuccess({ onReset }) {
   return (
-    <div className="bg-white rounded-3xl border border-cream-200 shadow-sm p-10 flex flex-col items-center justify-center text-center gap-5 min-h-[420px]">
-      <div className="w-16 h-16 rounded-full bg-lavender-100 flex items-center justify-center">
-        <CheckCircle size={28} className="text-plum-500" aria-hidden="true" />
+    <div className="card flex min-h-[28rem] flex-col items-center justify-center bg-white/60 p-10 text-center">
+      <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-blush text-plum">
+        <CheckCircle size={28} strokeWidth={1.6} aria-hidden="true" />
       </div>
-      <div>
-        <h3 className="font-serif text-2xl font-semibold text-plum-800 mb-2">Message Received</h3>
-        <p className="font-sans text-sm text-plum-400 max-w-xs leading-relaxed">
-          Thank you for reaching out. I aim to respond within 24–48 hours. All messages are
-          handled with complete confidentiality.
-        </p>
-      </div>
-      <button onClick={onReset} className="btn-secondary text-sm">
-        Send Another Message
+      <h3 className="mb-2 font-serif text-3xl font-semibold text-ink">Message received</h3>
+      <p className="max-w-sm text-sm leading-relaxed text-mauve">
+        Thank you for reaching out. I aim to respond within 24-48 hours. Your message will be
+        handled confidentially.
+      </p>
+      <button type="button" onClick={onReset} className="btn-secondary mt-7">
+        Send another message
       </button>
     </div>
   )
@@ -25,43 +28,62 @@ function FormSuccess({ onReset }) {
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleChange = e =>
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    // TODO: Connect to a form service (Netlify Forms, Formspree, EmailJS, etc.)
-    // For Netlify Forms, add: data-netlify="true" name="contact" to the <form> element
-    // and add a hidden input: <input type="hidden" name="form-name" value="contact" />
-    setSubmitted(true)
+  const handleChange = event => {
+    setForm(prev => ({ ...prev, [event.target.name]: event.target.value }))
   }
 
-  return (
-    <section id="contact" className="py-20 sm:py-28 bg-cream-100">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+  const handleSubmit = event => {
+    event.preventDefault()
+    setError('')
 
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <p className="section-label mb-3">Ready to Talk?</p>
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({ 'form-name': 'contact', ...form }),
+    })
+      .then(() => {
+        setSubmitted(true)
+        setForm({ name: '', email: '', phone: '', message: '' })
+      })
+      .catch(() => {
+        setError('Something went wrong while sending your message. Please email or call instead.')
+      })
+  }
+
+  const socialLinks = [
+    { label: 'Facebook', href: siteInfo.facebookUrl },
+    { label: 'Instagram', href: siteInfo.instagramUrl },
+  ].filter(link => link.href && link.href !== '#')
+
+  return (
+    <section id="contact" className="bg-white py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <p className="section-label mb-3">Contact</p>
           <h2 className="section-heading mb-4">{contactContent.heading}</h2>
           <p className="section-subheading">{contactContent.intro}</p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14">
-
-          {/* ── Contact form ── */}
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
           {submitted ? (
             <FormSuccess onReset={() => setSubmitted(false)} />
           ) : (
-            <div className="bg-white rounded-3xl border border-cream-200 shadow-sm p-8 sm:p-10">
-              <h3 className="font-serif text-2xl font-semibold text-plum-800 mb-7">
-                Send a Message
-              </h3>
+            <div className="card bg-cream p-7 sm:p-9">
+              <h3 className="mb-7 font-serif text-3xl font-semibold text-ink">Send a message</h3>
 
-              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                onSubmit={handleSubmit}
+                className="space-y-5"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+
                 <div>
-                  <label htmlFor="name" className="input-label">Your Name</label>
+                  <label htmlFor="name" className="input-label">Your name</label>
                   <input
                     type="text"
                     id="name"
@@ -76,7 +98,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="input-label">Email Address</label>
+                  <label htmlFor="email" className="input-label">Email address</label>
                   <input
                     type="email"
                     id="email"
@@ -92,8 +114,7 @@ export default function Contact() {
 
                 <div>
                   <label htmlFor="phone" className="input-label">
-                    Phone{' '}
-                    <span className="font-normal text-plum-300">(optional)</span>
+                    Phone <span className="font-normal text-mauve">(optional)</span>
                   </label>
                   <input
                     type="tel"
@@ -116,106 +137,95 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={5}
-                    placeholder="Tell me a little about what's brought you here, or any questions you have…"
+                    placeholder="Tell me a little about what has brought you here, or any questions you have."
                     className="input-field resize-none"
                   />
                 </div>
 
-                <p className="font-sans text-xs text-plum-300">
-                  Your message is completely confidential. I aim to respond within 24–48 hours.
+                <p className="text-xs leading-relaxed text-mauve">
+                  Your message is confidential. Please avoid sharing urgent crisis information
+                  through this form, as replies are not immediate.
                 </p>
 
-                <button type="submit" className="btn-primary w-full justify-center">
-                  Send Message
+                {error && <p className="text-sm font-semibold text-plum">{error}</p>}
+
+                <button type="submit" className="btn-primary w-full">
+                  Send message
                 </button>
               </form>
             </div>
           )}
 
-          {/* ── Contact details ── */}
-          <div className="flex flex-col gap-6">
-
-            {/* Book directly CTA */}
-            <div className="rounded-3xl bg-plum-700 p-8 text-white">
-              <h3 className="font-serif text-2xl font-semibold mb-2">Book a Free Call</h3>
-              <p className="font-sans text-sm text-white/70 mb-6 leading-relaxed">
-                The easiest way to get started. Book a free, no-obligation telephone consultation
-                directly into my diary — at a time that suits you.
+          <div className="flex flex-col gap-5">
+            <div className="rounded-[1.5rem] bg-ink p-7 text-white shadow-[0_24px_70px_rgba(66,55,61,0.16)] sm:p-8">
+              <h3 className="mb-2 font-serif text-3xl font-semibold text-white">Book a first conversation</h3>
+              <p className="mb-6 text-sm leading-relaxed text-white/70">
+                A free telephone consultation is a gentle way to ask questions and see whether
+                counselling with Stephanie feels right for you.
               </p>
               <a
                 href={siteInfo.bookingLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-white text-plum-700 font-sans font-semibold text-sm px-6 py-3 rounded-full hover:bg-cream-100 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-cream px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-blush"
               >
                 <Calendar size={15} aria-hidden="true" />
-                Book My Free Consultation
+                Book a first conversation
                 <ExternalLink size={13} aria-hidden="true" />
               </a>
             </div>
 
-            {/* Contact details card */}
-            <div className="bg-white rounded-3xl border border-cream-200 p-8 space-y-5">
-              <h3 className="font-serif text-xl font-semibold text-plum-800">Contact Details</h3>
-
-              <a
-                href={`tel:${siteInfo.phone.replace(/\s/g, '')}`}
-                className="flex items-center gap-4 group"
-              >
-                <div className="w-10 h-10 rounded-xl bg-lavender-100 flex items-center justify-center shrink-0 group-hover:bg-plum-100 transition-colors">
-                  <Phone size={15} className="text-plum-500" aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="font-sans text-xs text-plum-300 mb-0.5 uppercase tracking-wider">Phone</p>
-                  <p className="font-sans text-sm font-medium text-plum-700 group-hover:text-plum-900 transition-colors">
-                    {siteInfo.phone}
-                  </p>
-                </div>
-              </a>
-
-              <a
-                href={`mailto:${siteInfo.email}`}
-                className="flex items-center gap-4 group"
-              >
-                <div className="w-10 h-10 rounded-xl bg-lavender-100 flex items-center justify-center shrink-0 group-hover:bg-plum-100 transition-colors">
-                  <Mail size={15} className="text-plum-500" aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="font-sans text-xs text-plum-300 mb-0.5 uppercase tracking-wider">Email</p>
-                  <p className="font-sans text-sm font-medium text-plum-700 group-hover:text-plum-900 transition-colors break-all">
-                    {siteInfo.email}
-                  </p>
-                </div>
-              </a>
-
-              {/* Social links */}
-              <div className="pt-4 border-t border-cream-200">
-                <p className="font-sans text-xs font-semibold text-plum-300 uppercase tracking-widest mb-3">
-                  Follow Stephanie
-                </p>
-                <div className="flex gap-3 flex-wrap">
-                  {/* TODO: Replace href="#" with the real Facebook page URL */}
-                  <a
-                    href={siteInfo.facebookUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-cream-200 font-sans text-sm font-medium text-plum-500 hover:text-plum-700 hover:border-lavender-200 hover:bg-lavender-50 transition-all"
-                  >
-                    <ExternalLink size={13} aria-hidden="true" />
-                    Facebook
-                  </a>
-                  {/* TODO: Replace href="#" with the real Instagram profile URL */}
-                  <a
-                    href={siteInfo.instagramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-cream-200 font-sans text-sm font-medium text-plum-500 hover:text-plum-700 hover:border-lavender-200 hover:bg-lavender-50 transition-all"
-                  >
-                    <ExternalLink size={13} aria-hidden="true" />
-                    Instagram
-                  </a>
+            <div className="card bg-cream">
+              <h3 className="mb-5 font-serif text-2xl font-semibold text-ink">Contact details</h3>
+              <div className="space-y-4">
+                <a href={`tel:${siteInfo.phone.replace(/\s/g, '')}`} className="flex items-center gap-4 group">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blush text-plum">
+                    <Phone size={15} aria-hidden="true" />
+                  </span>
+                  <span>
+                    <span className="block text-xs font-bold uppercase tracking-[0.14em] text-mauve">Phone</span>
+                    <span className="text-sm font-semibold text-ink group-hover:text-plum">{siteInfo.phone}</span>
+                  </span>
+                </a>
+                <a href={`mailto:${siteInfo.email}`} className="flex items-center gap-4 group">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blush text-plum">
+                    <Mail size={15} aria-hidden="true" />
+                  </span>
+                  <span>
+                    <span className="block text-xs font-bold uppercase tracking-[0.14em] text-mauve">Email</span>
+                    <span className="break-all text-sm font-semibold text-ink group-hover:text-plum">{siteInfo.email}</span>
+                  </span>
+                </a>
+                <div className="flex items-center gap-4">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blush text-plum">
+                    <MapPin size={15} aria-hidden="true" />
+                  </span>
+                  <span>
+                    <span className="block text-xs font-bold uppercase tracking-[0.14em] text-mauve">Location</span>
+                    <span className="text-sm font-semibold text-ink">{siteInfo.location}</span>
+                  </span>
                 </div>
               </div>
+
+              {socialLinks.length > 0 && (
+                <div className="mt-6 border-t border-border pt-5">
+                  <div className="flex flex-wrap gap-3">
+                    {socialLinks.map(link => (
+                      <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="btn-secondary px-4 py-2 text-xs">
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-[1.25rem] border border-border bg-blush/55 p-5">
+              <p className="text-sm leading-relaxed text-ink/75">
+                Stephanie Anne Counselling is not an emergency service. If you are in immediate
+                danger or need urgent support, please call 999, contact NHS 111, or contact
+                Samaritans on 116 123.
+              </p>
             </div>
           </div>
         </div>

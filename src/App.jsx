@@ -5,6 +5,7 @@ import Hero from './components/Hero'
 import TrustBar from './components/TrustBar'
 import About from './components/About'
 import Services from './components/Services'
+import WhatToExpect from './components/WhatToExpect'
 import Fees from './components/Fees'
 import Location from './components/Location'
 import Contact from './components/Contact'
@@ -20,13 +21,14 @@ export default function App() {
         <IntroAnimation onComplete={handleIntroComplete} />
       )}
 
-      <div className="min-h-screen bg-cream-100 font-sans text-plum-900">
+      <div className="min-h-screen bg-cream font-sans text-ink">
         <Header />
         <main>
           <Hero />
           <TrustBar />
           <About />
           <Services />
+          <WhatToExpect />
           <Fees />
           <Location />
           <Contact />

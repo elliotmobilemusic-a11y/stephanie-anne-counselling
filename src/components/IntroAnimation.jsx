@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 // ─── Lily SVG ─────────────────────────────────────────────────────────────────
 // 6 petals radiating from centre, alternating blush/lavender, with stamens.
@@ -6,12 +6,12 @@ import { useState, useEffect, useRef } from 'react'
 // Rotating each <g> by 60° increments places petals evenly around the centre.
 
 const PETALS = [
-  { rotation: 0,   fill: '#F0C8CE', stroke: '#E5B0B8' },
-  { rotation: 60,  fill: '#EDE8F5', stroke: '#D8D0EC' },
-  { rotation: 120, fill: '#F0C8CE', stroke: '#E5B0B8' },
-  { rotation: 180, fill: '#EDE8F5', stroke: '#D8D0EC' },
-  { rotation: 240, fill: '#F0C8CE', stroke: '#E5B0B8' },
-  { rotation: 300, fill: '#EDE8F5', stroke: '#D8D0EC' },
+  { rotation: 0,   fill: '#F3E4E6', stroke: '#B78496' },
+  { rotation: 60,  fill: '#D8CFDD', stroke: '#9C8695' },
+  { rotation: 120, fill: '#F3E4E6', stroke: '#B78496' },
+  { rotation: 180, fill: '#D8CFDD', stroke: '#9C8695' },
+  { rotation: 240, fill: '#F3E4E6', stroke: '#B78496' },
+  { rotation: 300, fill: '#D8CFDD', stroke: '#9C8695' },
 ]
 
 // 6 stamens offset by 30° from petals (between each petal pair)
@@ -56,7 +56,7 @@ function LilySVG() {
           key={i}
           x1="0" y1="0"
           x2={x * 0.72} y2={y * 0.72}
-          stroke="#C0607A"
+          stroke="#8B5E70"
           strokeWidth="0.75"
           strokeLinecap="round"
           opacity="0.55"
@@ -70,15 +70,15 @@ function LilySVG() {
           cx={x}
           cy={y}
           r="1.9"
-          fill="#C0607A"
+          fill="#8B5E70"
           opacity="0.65"
         />
       ))}
 
       {/* Centre circle */}
-      <circle cx="0" cy="0" r="8"  fill="#FAF7F2" />
-      <circle cx="0" cy="0" r="5"  fill="#F9E0E4" opacity="0.85" />
-      <circle cx="0" cy="0" r="2"  fill="#D4849A" opacity="0.5" />
+      <circle cx="0" cy="0" r="8"  fill="#FAF6F3" />
+      <circle cx="0" cy="0" r="5"  fill="#F3E4E6" opacity="0.85" />
+      <circle cx="0" cy="0" r="2"  fill="#B78496" opacity="0.5" />
     </svg>
   )
 }
@@ -99,12 +99,8 @@ const PREFERS_REDUCED =
 
 export default function IntroAnimation({ onComplete }) {
   const [phase, setPhase] = useState('hidden')
-  const started = useRef(false)
 
   useEffect(() => {
-    if (started.current) return
-    started.current = true
-
     if (PREFERS_REDUCED) {
       onComplete()
       return
@@ -136,7 +132,7 @@ export default function IntroAnimation({ onComplete }) {
         flexDirection:  'column',
         alignItems:     'center',
         justifyContent: 'center',
-        background:     'linear-gradient(135deg, #FAF7F2 0%, #F0EAF8 58%, #FDF2F5 100%)',
+        background:     'linear-gradient(135deg, #FAF6F3 0%, #D8CFDD 58%, #F3E4E6 100%)',
         opacity:    overlayOut ? 0 : 1,
         transition: overlayOut ? 'opacity 1.05s ease' : 'none',
         pointerEvents: overlayOut ? 'none' : 'auto',
@@ -189,10 +185,10 @@ export default function IntroAnimation({ onComplete }) {
         <p
           style={{
             margin:      0,
-            fontFamily:  "'Playfair Display', Georgia, serif",
+            fontFamily:  "'Cormorant Garamond', Georgia, serif",
             fontSize:    'clamp(1.1rem, 3vw, 1.6rem)',
             fontWeight:  500,
-            color:       '#4A2555',
+            color:       '#42373D',
             letterSpacing: '0.07em',
           }}
         >
@@ -204,7 +200,7 @@ export default function IntroAnimation({ onComplete }) {
             width:      '2.8rem',
             height:     '1px',
             margin:     '0.85rem auto 0',
-            background: 'linear-gradient(90deg, transparent, #D4849A, transparent)',
+            background: 'linear-gradient(90deg, transparent, #B78496, transparent)',
             opacity:    nameVisible ? 1 : 0,
             transition: 'opacity 0.5s ease 0.5s',
           }}

@@ -1,96 +1,62 @@
-import { MapPin, Train, Bus, Car, Users } from 'lucide-react'
-import { locationContent, siteInfo } from '../data/siteContent'
+import { Home, MapPin, Monitor, Train } from 'lucide-react'
+import { locationContent } from '../data/siteContent'
 
-const transportIcons = [Train, Bus, Car, Users]
+const details = [
+  {
+    title: 'Brighouse, West Yorkshire',
+    text: 'A private counselling space for face-to-face sessions.',
+    icon: MapPin,
+  },
+  {
+    title: 'Full address after booking',
+    text: 'The full address and arrival details are shared once your appointment is confirmed.',
+    icon: Home,
+  },
+  {
+    title: 'Online counselling available',
+    text: 'Secure video sessions are available if online support feels more accessible.',
+    icon: Monitor,
+  },
+]
 
 export default function Location() {
   return (
-    <section id="location" className="py-20 sm:py-28 bg-white">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
-
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <p className="section-label mb-3">Where to Find Me</p>
-          <h2 className="section-heading mb-4">{locationContent.heading}</h2>
-          <p className="section-subheading">{locationContent.description}</p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-
-          {/* Map placeholder */}
-          <div className="rounded-2xl overflow-hidden border border-cream-200 shadow-sm aspect-[4/3] bg-lavender-50 flex flex-col items-center justify-center gap-4">
-            {/*
-              TODO: Replace this block with a Google Maps embed.
-              1. Go to maps.google.com, search for the address, click Share → Embed a map
-              2. Copy the <iframe> src URL
-              3. Replace this comment block with:
-
-              <iframe
-                src="PASTE_YOUR_EMBED_URL_HERE"
-                width="100%"
-                height="100%"
-                style={{ border: 0, display: 'block' }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Stephanie Anne Counselling location map"
-              />
-            */}
-            <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center">
-              <MapPin size={26} className="text-plum-400" aria-hidden="true" />
-            </div>
-            <div className="text-center px-6">
-              <p className="font-sans text-sm font-medium text-plum-500 mb-1">
-                Brighouse, West Yorkshire
-              </p>
-              <p className="font-sans text-xs text-plum-300">
-                Google Maps embed — add iframe here
-              </p>
-            </div>
+    <section id="online-counselling" className="bg-cream py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div>
+            <p className="section-label mb-3">Brighouse and online</p>
+            <h2 className="section-heading mb-5">Counselling in Brighouse, West Yorkshire</h2>
+            <p className="section-subheading">{locationContent.description}</p>
           </div>
 
-          {/* Location info */}
-          <div className="space-y-7">
+          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+            {details.map(item => {
+              const Icon = item.icon
+              return (
+                <article key={item.title} className="card flex items-start gap-4 bg-white/55">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border bg-blush text-plum">
+                    <Icon size={18} strokeWidth={1.6} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3 className="font-serif text-[1.45rem] font-semibold leading-tight text-ink">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-mauve">{item.text}</p>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </div>
 
-            {/* Address card */}
-            <div className="card flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-lavender-100 flex items-center justify-center shrink-0">
-                <MapPin size={17} className="text-plum-500" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 className="font-serif text-lg font-semibold text-plum-800 mb-1">Location</h3>
-                <p className="font-sans text-sm text-plum-400 whitespace-pre-line leading-relaxed">
-                  {locationContent.address}
-                </p>
-              </div>
-            </div>
-
-            {/* Getting here */}
-            <div>
-              <h3 className="font-serif text-xl font-semibold text-plum-800 mb-4">Getting Here</h3>
-              <div className="space-y-3">
-                {locationContent.transport.map((item, i) => {
-                  const Icon = transportIcons[i % transportIcons.length]
-                  return (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-blush-50 flex items-center justify-center shrink-0 mt-0.5">
-                        <Icon size={14} className="text-blush-400" aria-hidden="true" />
-                      </div>
-                      <p className="font-sans text-sm text-plum-500 pt-1 leading-relaxed">{item}</p>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-
-            {/* Online nudge */}
-            <div className="rounded-2xl bg-lavender-50 border border-lavender-100 p-5">
-              <p className="font-sans text-sm text-plum-600 leading-relaxed">
-                <span className="font-semibold">Not local to Brighouse?</span>{' '}
-                No problem. I offer online counselling via video call, so you can access support
-                from wherever feels comfortable.
-              </p>
-            </div>
+        <div className="mt-8 rounded-[1.35rem] border border-border bg-white/50 p-5">
+          <div className="flex items-start gap-3">
+            <Train size={18} className="mt-1 shrink-0 text-plum" aria-hidden="true" />
+            <p className="text-sm leading-relaxed text-mauve">
+              Brighouse is accessible from Halifax, Huddersfield and the surrounding West Yorkshire
+              area. Please ask if you have access needs or travel questions before booking.
+            </p>
           </div>
         </div>
       </div>

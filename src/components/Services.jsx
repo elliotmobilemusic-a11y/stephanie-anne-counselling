@@ -1,68 +1,49 @@
-import { Heart, Leaf, Monitor, MapPin } from 'lucide-react'
+import { Heart, Leaf, MapPin, Monitor } from 'lucide-react'
 import { services, siteInfo } from '../data/siteContent'
 
 const iconMap = { Heart, Leaf, Monitor, MapPin }
 
-const cardAccents = [
-  { bg: 'bg-lavender-100', icon: 'text-plum-500',  border: 'hover:border-lavender-200' },
-  { bg: 'bg-blush-100',   icon: 'text-blush-500',  border: 'hover:border-blush-200'   },
-  { bg: 'bg-lavender-100', icon: 'text-plum-500',  border: 'hover:border-lavender-200' },
-  { bg: 'bg-blush-100',   icon: 'text-blush-500',  border: 'hover:border-blush-200'   },
-]
-
 export default function Services() {
   return (
-    <section id="services" className="py-20 sm:py-28 bg-white">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
-
-        {/* Section header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <p className="section-label mb-3">What I Offer</p>
-          <h2 className="section-heading mb-4">Counselling Services</h2>
-          <p className="section-subheading">
-            Every person is different, and so is every journey through therapy. I offer a range of
-            approaches and session types to suit what you need.
+    <section id="services" className="bg-white py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="mb-14 max-w-3xl">
+          <p className="section-label mb-3">How I Help</p>
+          <h2 className="section-heading mb-5">How I can help</h2>
+          <p className="section-subheading max-w-2xl">
+            Person-centred counselling offers a steady, compassionate space to explore what feels
+            heavy, confusing or painful, without being rushed or judged.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {services.map((service, i) => {
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {services.map(service => {
             const Icon = iconMap[service.icon] || Heart
-            const accent = cardAccents[i % cardAccents.length]
 
             return (
-              <div
-                key={service.id}
-                className={`rounded-2xl border border-cream-200 bg-white p-7 flex flex-col gap-5 shadow-sm transition-all duration-200 hover:shadow-lg ${accent.border} group`}
-              >
-                <div
-                  className={`w-11 h-11 rounded-xl ${accent.bg} flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105`}
-                >
-                  <Icon size={20} className={accent.icon} aria-hidden="true" />
+              <article key={service.id} className="card bg-cream">
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-white text-plum">
+                  <Icon size={20} strokeWidth={1.6} aria-hidden="true" />
                 </div>
-                <div>
-                  <h3 className="font-serif text-lg font-semibold text-plum-800 mb-2.5 leading-snug">
-                    {service.title}
-                  </h3>
-                  <p className="font-sans text-sm text-plum-400 leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
-              </div>
+                <h3 className="mb-3 font-serif text-[1.55rem] font-semibold leading-tight text-ink">
+                  {service.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-mauve">
+                  {service.description}
+                </p>
+              </article>
             )
           })}
         </div>
 
-        {/* CTA */}
-        <div className="mt-12 text-center">
+        <div className="mt-12">
           <a
             href={siteInfo.bookingLink}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary"
           >
-            Book Your Free Consultation
+            Book a first conversation
           </a>
         </div>
       </div>
