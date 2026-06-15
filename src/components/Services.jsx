@@ -38,12 +38,12 @@ export default function Services() {
 
         <div className="mt-12">
           <a
-            href={siteInfo.bookingLink}
+            href={siteInfo.enquiryLink}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary"
           >
-            Book a first conversation
+            Make an enquiry
           </a>
         </div>
       </div>

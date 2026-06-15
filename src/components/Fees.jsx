@@ -41,12 +41,12 @@ export default function Fees() {
           </p>
           <div className="flex flex-col justify-center gap-3 sm:flex-row">
             <a
-              href={siteInfo.bookingLink}
+              href={siteInfo.enquiryLink}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
             >
-              Book a first conversation
+              Make an enquiry
             </a>
             <a href={`tel:${siteInfo.phone.replace(/\s/g, '')}`} className="btn-secondary">
               <Phone size={15} aria-hidden="true" />

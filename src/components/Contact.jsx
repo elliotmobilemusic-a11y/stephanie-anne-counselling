@@ -1,4 +1,4 @@
-import { Calendar, ExternalLink, Mail, MapPin, MessageSquareHeart, Phone } from 'lucide-react'
+import { ExternalLink, Mail, MapPin, MessageSquareHeart, Phone } from 'lucide-react'
 import { contactContent, siteInfo } from '../data/siteContent'
 
 export default function Contact() {
@@ -47,20 +47,18 @@ export default function Contact() {
 
           <div className="flex flex-col gap-5">
             <div className="rounded-[1.5rem] bg-ink p-7 text-white shadow-[0_24px_70px_rgba(66,55,61,0.16)] sm:p-8">
-              <h3 className="mb-2 font-serif text-3xl font-semibold text-white">Book a first conversation</h3>
+              <h3 className="mb-2 font-serif text-3xl font-semibold text-white">Prefer to talk first?</h3>
               <p className="mb-6 text-sm leading-relaxed text-white/70">
                 A free telephone consultation is a gentle way to ask questions and see whether
-                counselling with Stephanie feels right for you.
+                counselling with Stephanie feels right for you. Call or send an enquiry and we&apos;ll
+                arrange a time.
               </p>
               <a
-                href={siteInfo.bookingLink}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`tel:${siteInfo.phone.replace(/\s/g, '')}`}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-cream px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-blush"
               >
-                <Calendar size={15} aria-hidden="true" />
-                Book a first conversation
-                <ExternalLink size={13} aria-hidden="true" />
+                <Phone size={15} aria-hidden="true" />
+                {siteInfo.phone}
               </a>
             </div>
 

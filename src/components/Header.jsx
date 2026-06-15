@@ -47,12 +47,12 @@ export default function Header() {
           </nav>
 
           <a
-            href={siteInfo.bookingLink}
+            href={siteInfo.enquiryLink}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary hidden px-5 py-3 text-xs lg:inline-flex"
           >
-            Book a first conversation
+            Make an enquiry
           </a>
 
           <button
@@ -86,13 +86,13 @@ export default function Header() {
             </a>
           ))}
           <a
-            href={siteInfo.bookingLink}
+            href={siteInfo.enquiryLink}
             target="_blank"
             rel="noopener noreferrer"
             onClick={closeMenu}
             className="btn-primary mt-3 w-full"
           >
-            Book a first conversation
+            Make an enquiry
           </a>
         </nav>
       </div>

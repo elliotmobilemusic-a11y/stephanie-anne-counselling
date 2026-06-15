@@ -5,7 +5,6 @@ export const siteInfo = {
   email: 'Stephanieanne@client-led.uk',
   phone: '07736 973185',
   location: 'Brighouse, West Yorkshire',
-  bookingLink: 'https://koalendar.com/e/meet-with-stephanie-anne',
   enquiryLink: 'https://app.client-led.com/enquiry',
   bacp: 'BACP Registered Member',
   // TODO: Replace # with the real Facebook page URL when available
@@ -19,7 +18,7 @@ export const heroContent = {
   headline: "A calm, compassionate space for grief, loss and life’s difficult moments.",
   subheadline:
     "Professional counselling in Brighouse, West Yorkshire and online — offering warm, confidential support at your pace.",
-  ctaPrimary: 'Book a first conversation',
+  ctaPrimary: 'Make an enquiry',
   ctaSecondary: 'Learn how I can help',
 }
 
@@ -128,5 +127,5 @@ export const locationContent = {
 export const contactContent = {
   heading: 'Get in touch',
   intro:
-    "Taking the first step can feel daunting — but I'm here to make it as easy as possible. You can make an enquiry, book a free telephone consultation, send me an email, or simply give me a call.",
+    "Taking the first step can feel daunting — but I'm here to make it as easy as possible. You can make an enquiry, send me an email, or simply give me a call.",
 }

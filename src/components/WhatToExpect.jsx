@@ -2,8 +2,8 @@ import { CalendarHeart, MessageCircleHeart, HeartHandshake, Flower2 } from 'luci
 
 const steps = [
   {
-    title: 'Book a free telephone consultation',
-    text: 'Choose a time for a gentle first conversation, with no pressure to commit.',
+    title: 'Make a free, no-obligation enquiry',
+    text: 'Send a quick enquiry to arrange a gentle first conversation, with no pressure to commit.',
     icon: CalendarHeart,
   },
   {

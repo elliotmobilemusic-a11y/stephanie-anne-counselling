@@ -24,12 +24,12 @@ export default function Footer() {
               grief, bereavement, loss and life’s difficult moments.
             </p>
             <a
-              href={siteInfo.bookingLink}
+              href={siteInfo.enquiryLink}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary mt-6"
             >
-              Book a first conversation
+              Make an enquiry
             </a>
           </div>
 
