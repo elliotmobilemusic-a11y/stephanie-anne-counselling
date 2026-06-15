@@ -103,11 +103,6 @@ export const fees = [
     description: '60-minute session via secure video call.',
   },
   {
-    label: 'Saturday Morning',
-    price: '£55',
-    description: '60-minute in-person or online session on Saturday mornings.',
-  },
-  {
     label: 'Student Concession',
     price: '£35',
     description: 'Reduced rate for students. Please mention when booking.',
