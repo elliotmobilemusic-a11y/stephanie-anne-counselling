@@ -104,8 +104,8 @@ export const fees = [
   },
   {
     label: 'Student Concession',
-    price: '£35',
-    description: 'Reduced rate for students. Please mention when booking.',
+    price: '£40',
+    description: 'Reduced online-only rate for students. Please mention when booking.',
   },
 ]
 
