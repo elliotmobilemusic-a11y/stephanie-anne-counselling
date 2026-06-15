@@ -1,57 +1,7 @@
-import { useState } from 'react'
-import { Calendar, CheckCircle, ExternalLink, Mail, MapPin, Phone } from 'lucide-react'
+import { Calendar, ExternalLink, Mail, MapPin, MessageSquareHeart, Phone } from 'lucide-react'
 import { contactContent, siteInfo } from '../data/siteContent'
 
-const encode = data =>
-  Object.keys(data)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-    .join('&')
-
-function FormSuccess({ onReset }) {
-  return (
-    <div className="card flex min-h-[28rem] flex-col items-center justify-center bg-white/60 p-10 text-center">
-      <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-blush text-plum">
-        <CheckCircle size={28} strokeWidth={1.6} aria-hidden="true" />
-      </div>
-      <h3 className="mb-2 font-serif text-3xl font-semibold text-ink">Message received</h3>
-      <p className="max-w-sm text-sm leading-relaxed text-mauve">
-        Thank you for reaching out. I aim to respond within 24-48 hours. Your message will be
-        handled confidentially.
-      </p>
-      <button type="button" onClick={onReset} className="btn-secondary mt-7">
-        Send another message
-      </button>
-    </div>
-  )
-}
-
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' })
-  const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState('')
-
-  const handleChange = event => {
-    setForm(prev => ({ ...prev, [event.target.name]: event.target.value }))
-  }
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    setError('')
-
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encode({ 'form-name': 'contact', ...form }),
-    })
-      .then(() => {
-        setSubmitted(true)
-        setForm({ name: '', email: '', phone: '', message: '' })
-      })
-      .catch(() => {
-        setError('Something went wrong while sending your message. Please email or call instead.')
-      })
-  }
-
   const socialLinks = [
     { label: 'Facebook', href: siteInfo.facebookUrl },
     { label: 'Instagram', href: siteInfo.instagramUrl },
@@ -67,94 +17,33 @@ export default function Contact() {
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
-          {submitted ? (
-            <FormSuccess onReset={() => setSubmitted(false)} />
-          ) : (
-            <div className="card bg-cream p-7 sm:p-9">
-              <h3 className="mb-7 font-serif text-3xl font-semibold text-ink">Send a message</h3>
+          <div className="card flex flex-col bg-cream p-7 sm:p-9">
+            <span className="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-blush text-plum">
+              <MessageSquareHeart size={26} strokeWidth={1.6} aria-hidden="true" />
+            </span>
+            <h3 className="mb-3 font-serif text-3xl font-semibold text-ink">Make an enquiry</h3>
+            <p className="mb-6 max-w-md text-sm leading-relaxed text-mauve">
+              The easiest way to reach me is through my secure enquiry form. Share a little about
+              what has brought you here and any questions you have, and I&apos;ll get back to you —
+              usually within 24&ndash;48 hours.
+            </p>
 
-              <form
-                name="contact"
-                method="POST"
-                data-netlify="true"
-                onSubmit={handleSubmit}
-                className="space-y-5"
-              >
-                <input type="hidden" name="form-name" value="contact" />
+            <a
+              href={siteInfo.enquiryLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary w-full sm:w-auto"
+            >
+              <MessageSquareHeart size={16} aria-hidden="true" />
+              Make an enquiry
+              <ExternalLink size={13} aria-hidden="true" />
+            </a>
 
-                <div>
-                  <label htmlFor="name" className="input-label">Your name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                    autoComplete="name"
-                    placeholder="Jane Smith"
-                    className="input-field"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="input-label">Email address</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    autoComplete="email"
-                    placeholder="jane@example.com"
-                    className="input-field"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="input-label">
-                    Phone <span className="font-normal text-mauve">(optional)</span>
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={form.phone}
-                    onChange={handleChange}
-                    autoComplete="tel"
-                    placeholder="07700 000000"
-                    className="input-field"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="input-label">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={form.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    placeholder="Tell me a little about what has brought you here, or any questions you have."
-                    className="input-field resize-none"
-                  />
-                </div>
-
-                <p className="text-xs leading-relaxed text-mauve">
-                  Your message is confidential. Please avoid sharing urgent crisis information
-                  through this form, as replies are not immediate.
-                </p>
-
-                {error && <p className="text-sm font-semibold text-plum">{error}</p>}
-
-                <button type="submit" className="btn-primary w-full">
-                  Send message
-                </button>
-              </form>
-            </div>
-          )}
+            <p className="mt-6 text-xs leading-relaxed text-mauve">
+              Your enquiry is confidential. Please avoid sharing urgent crisis information through
+              the form, as replies are not immediate.
+            </p>
+          </div>
 
           <div className="flex flex-col gap-5">
             <div className="rounded-[1.5rem] bg-ink p-7 text-white shadow-[0_24px_70px_rgba(66,55,61,0.16)] sm:p-8">
