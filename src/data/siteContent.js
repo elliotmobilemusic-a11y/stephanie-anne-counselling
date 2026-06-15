@@ -94,13 +94,13 @@ export const fees = [
   },
   {
     label: 'In-Person Session',
-    price: '£45',
-    description: '60-minute face-to-face session in Brighouse.',
+    price: '£60',
+    description: '50-minute face-to-face session in Brighouse.',
   },
   {
     label: 'Online Session',
     price: '£55',
-    description: '60-minute session via secure video call.',
+    description: '50-minute session via secure video call.',
   },
   {
     label: 'Student Concession',
