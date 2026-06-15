@@ -36,7 +36,7 @@ export default function Fees() {
 
         <div className="mx-auto mt-12 max-w-2xl text-center">
           <p className="mb-6 text-sm leading-relaxed text-mauve">
-            Sessions are 50 minutes. Please get in touch if you have any questions about fees or
+            Sessions are 60 minutes. Please get in touch if you have any questions about fees or
             would like to discuss payment options.
           </p>
           <div className="flex flex-col justify-center gap-3 sm:flex-row">

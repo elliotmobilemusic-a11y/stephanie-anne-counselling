@@ -94,18 +94,18 @@ export const fees = [
   },
   {
     label: 'In-Person Session',
-    price: '£50',
-    description: '50-minute face-to-face session in Brighouse.',
+    price: '£45',
+    description: '60-minute face-to-face session in Brighouse.',
   },
   {
     label: 'Online Session',
     price: '£45',
-    description: '50-minute session via secure video call.',
+    description: '60-minute session via secure video call.',
   },
   {
     label: 'Saturday Morning',
     price: '£55',
-    description: '50-minute in-person or online session on Saturday mornings.',
+    description: '60-minute in-person or online session on Saturday mornings.',
   },
   {
     label: 'Student Concession',
