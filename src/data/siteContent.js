@@ -99,7 +99,7 @@ export const fees = [
   },
   {
     label: 'Online Session',
-    price: '£45',
+    price: '£55',
     description: '60-minute session via secure video call.',
   },
   {
